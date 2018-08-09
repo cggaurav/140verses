@@ -1,0 +1,59 @@
+<script>
+analytics.track('Created', {
+    status: "Yay"
+});
+</script>
+<div class="hero-unit">
+  <a href="http://www.140verses.com"><img src="/lib/images/logo.png" alt="140 verses" align="left"/></a>
+  <ul class="nav nav-pills pull-right">
+  	<li><a href="/">Home</a></li>
+	<li><a href="/discover">Discover</a></li>
+    <li class="active"><a href="/create">Create & Share</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Love us?</a></li>
+    </br></br></br></br>
+    <blockquote>140verses takes random sentences from the internet, and puts it together to make poems.</blockquote>
+  </ul>
+</div>
+<div class="container">
+<form class="form-inline" align="center" action="/create" method="get">
+	  <input type="text" class="input" placeholder="love" name="word1">
+	  <input type="text" class="input" placeholder="coffee" name="word2">
+		</br></br>
+	  <button type="submit" class="btn">Poemize!</button>
+</form>
+<% if @poems == nil%>
+	<blockquote>
+		<p>Sorry, we couldn't mash poems for you,</p>
+		<p>Perhaps you can try another time or two!</p>
+	</blockquote>
+<% elsif @poems == ""%>
+	<blockquote>
+		<p>Give us a word or two,</p>
+		<p>And we'll generate poems you'll woo!</p>
+	</blockquote>
+<% else %>
+	<blockquote key="<%=@poems["key"]%>">
+		<p><%=@poems[1]%></p>
+		<small><a href="http://twitter.com/<%=@poems["t1"]%>/status/<%=@poems["s1"]%>"><%=@poems["t1"]%></a></small>
+		<p><%=@poems[2]%></p>
+		<small><a href="http://twitter.com/<%=@poems["t2"]%>/status/<%=@poems["s2"]%>"><%=@poems["t2"]%></a></small>
+		<p><%=@poems[3]%></p>
+		<small><a href="http://twitter.com/<%=@poems["t3"]%>/status/<%=@poems["s3"]%>"><%=@poems["t3"]%></a></small>
+		<p><%=@poems[4]%></p>
+		<small><a href="http://twitter.com/<%=@poems["t4"]%>/status/<%=@poems["s4"]%>"><%=@poems["t4"]%></a></small>
+	</blockquote>
+	<div class="span12">
+		<div class="addthis_toolbox addthis_default_style addthis_32x32_style"  addthis:url="http://www.140verses.com/share/<%=@poems["key"]%>" addthis:title="I just composed a poem using #140verses | ' <%=@poem[1][0..50]%> ....' | " addthis:description="#140verses composes poems using tweets!">
+		<a class="addthis_button_preferred_1"></a>
+		<a class="addthis_button_preferred_2"></a>
+		<a class="addthis_button_preferred_3"></a>
+		<a class="addthis_button_preferred_4"></a>
+		<a class="addthis_button_compact"></a>
+		<a class="addthis_counter addthis_bubble_style"></a>
+		</div>
+		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5009907322814fcf"></script>
+	</div>
+<% end %>
+</div>
+

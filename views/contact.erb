@@ -1,0 +1,51 @@
+<div class="hero-unit">
+  <a href="http://www.140verses.com"><img src="/lib/images/logo.png" alt="140 verses" align="left"/></a>
+  <ul class="nav nav-pills pull-right">
+    <li><a href="/">Home</a></li>
+    <li><a href="/discover">Discover</a></li>
+    <li><a href="/create">Create & Share</a></li>
+    <li><a href="/about">About</a></li>
+    <li class="active"><a href="/contact">Love us?</a></li>
+    </br></br></br></br>
+    <blockquote>140verses takes random sentences from the internet, and puts it together to make poems.</blockquote>
+  </ul>
+</div>
+<div class="container">
+<% if (@status=="true") %>
+  <div class="alert">
+    <button class="close" data-dismiss="alert">×</button>
+    Thanks for getting in touch. We'll reply soon!
+  </div>
+<% elsif (@status=="false") %>
+  <div class="alert">
+    <button class="close" data-dismiss="alert">×</button>
+    <strong>Warning!</strong> A few fields missing!
+  </div>
+<% end %>
+<form class="form-horizontal" action="/contact" method="post">
+  <fieldset>
+    <legend>Thanks for getting in touch!</legend>
+  <div class="control-group">
+    <label class="control-label" for="name">Name</label>
+      <div class="controls">
+          <input type="text" class="input-xlarge" id="name" name="name">
+      </div>
+    </div>
+  <div class="control-group">
+  <label class="control-label" for="email">Email</label>
+    <div class="controls">
+      <input type="text" class="input-xlarge" id="email" name="email">
+    </div>
+  </div>
+  <div class="control-group">
+  <label class="control-label" for="feeback">Feedback</label>
+    <div class="controls">
+      <textarea type="text" class="input-xlarge" id="feedback" rows="10" name="feedback"></textarea>
+      <p class="help-block">What do you feel about 140verses? Are we missing any anything? Any features that you want to see? Want to help the project grow?</p>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button type="submit" class="btn">Submit</button>
+  </div>
+  </fieldset>
+</form>

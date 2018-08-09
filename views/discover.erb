@@ -1,0 +1,30 @@
+<div class="hero-unit">
+  <a href="http://www.140verses.com"><img src="/lib/images/logo.png" alt="140 verses" align="left"/></a>
+  <ul class="nav nav-pills pull-right">
+  	<li><a href="/">Home</a></li>
+    <li class="active"><a href="/discover">Discover</a></li>
+    <li><a href="/create">Create & Share</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Love us?</a></li>
+    </br></br></br></br>
+    <blockquote>140verses takes random sentences from the internet, and puts it together to make poems.</blockquote>
+  </ul>
+</div>
+<!-- <div class="well">
+	If you are in India, SMS #140verses followed by a word to generate a random two line poem to 55444. via <a href="http://55444.in/apps/140verses">55444</a>.
+</div> -->
+<div class="container">
+<%@poems.each do |poem|%>
+	<blockquote key="<%=poem["key"]%>">
+		<p><%=poem[1]%></p>
+		<small><a href="http://twitter.com/<%=poem["t1"]%>/status/<%=poem["s1"]%>"><%=poem["t1"]%></a></small>
+		<p><%=poem[2]%></p>
+		<small><a href="http://twitter.com/<%=poem["t2"]%>/status/<%=poem["s2"]%>"><%=poem["t2"]%></a></small>
+		<p><%=poem[3]%></p>
+		<small><a href="http://twitter.com/<%=poem["t3"]%>/status/<%=poem["s3"]%>"><%=poem["t3"]%></a></small>
+		<p><%=poem[4]%></p>
+		<small><a href="http://twitter.com/<%=poem["t4"]%>/status/<%=poem["s4"]%>"><%=poem["t4"]%></a></small>
+	</blockquote>
+<% end %>
+<button type="submit" onClick="window.location.reload()" class="btn">Discover More!</button>
+</div>

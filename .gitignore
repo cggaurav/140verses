@@ -1,0 +1,8 @@
+newrelic.yml
+hn
+old
+log
+yettobedone.txt
+*.secret
+*.pdf
+.DS_Store

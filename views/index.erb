@@ -1,0 +1,33 @@
+<div class="hero-unit">
+      <a href="http://www.140verses.com"><img src="/lib/images/logo.png" alt="140 verses" align="left"/></a>
+      <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/discover">Discover</a></li>
+        <li><a href="/create">Create & Share</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Love us?</a></li>
+        </br></br></br></br>
+        <blockquote>140verses takes random sentences from the internet, and puts it together to make poems.</blockquote>
+      </ul>
+    </div>
+<div class="well">
+	A few interesting interesting poems, create one yourself!
+</div>
+<form class="form-inline" align="center" action="/create" method="get">
+    <input type="text" class="input" placeholder="love" name="word1">
+    <input type="text" class="input" placeholder="coffee" name="word2">
+    </br></br>
+    <button type="submit" class="btn">Poemize!</button>
+</form>
+<%@poems.each do |poem|%>
+  <blockquote key="<%=poem["key"]%>">
+    <p><%=poem[1]%></p>
+    <small><a href="http://twitter.com/<%=poem["t1"]%>/status/<%=poem["s1"]%>"><%=poem["t1"]%></a></small>
+    <p><%=poem[2]%></p>
+    <small><a href="http://twitter.com/<%=poem["t2"]%>/status/<%=poem["s2"]%>"><%=poem["t2"]%></a></small>
+    <p><%=poem[3]%></p>
+    <small><a href="http://twitter.com/<%=poem["t3"]%>/status/<%=poem["s3"]%>"><%=poem["t3"]%></a></small>
+    <p><%=poem[4]%></p>
+    <small><a href="http://twitter.com/<%=poem["t4"]%>/status/<%=poem["s4"]%>"><%=poem["t4"]%></a></small>
+  </blockquote>
+<% end %>
