@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'newrelic_rpm'
 require 'twitter'
 require 'ruby_rhymes'
 require 'twitter-text'
