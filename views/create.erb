@@ -17,8 +17,8 @@ analytics.track('Created', {
 </div>
 <div class="container">
 <form class="form-inline" align="center" action="/create" method="get">
-	  <input type="text" class="input" placeholder="love" name="word1">
-	  <input type="text" class="input" placeholder="coffee" name="word2">
+	  <input type="text" class="input" placeholder="trump" name="word1">
+	  <input type="text" class="input" placeholder="america" name="word2">
 		</br></br>
 	  <button type="submit" class="btn">Poemize!</button>
 </form>
@@ -31,6 +31,8 @@ analytics.track('Created', {
 	<blockquote>
 		<p>Give us a word or two,</p>
 		<p>And we'll generate poems you'll woo!</p>
+
+		<p> OK this might take a while </p>
 	</blockquote>
 <% else %>
 	<blockquote key="<%=@poems["key"]%>">

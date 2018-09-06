@@ -6,46 +6,42 @@ require 'pony'
 require 'redis'
 require 'json'
 
-include Twitter::Autolink
-
 $client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = "A"
-  config.consumer_secret     = "B"
-  config.access_token        = "C-D"
-  config.access_token_secret = "E"
+  config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+  config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+  config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
+  config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
 end
 
-# topics = ["coffee", "tea"]
-# client.filter(:track => topics.join(",")) do |tweet|
-#   puts tweet.text
-# end
-
+# GLOBALS
+include Twitter::TwitterText::Autolink
 Encoding.default_external = "utf-8"
+
+# CONFIGURE
 configure do
   set :public_folder, Proc.new { File.join(root, "static") }
   enable :sessions
 end
 configure do
-  # redis_uri = (ENV["REDISTOGO_URL"])
-  redis_uri = (ENV["REDISTOGO_URL"]) || 'redis://A:F@chubb.redistogo.com:G/'
+  redis_uri = (ENV["REDISTOGO_URL"]) || 'redis://localhost:6379/'
   uri = URI.parse(redis_uri)
-  REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  REDIS = Redis.new(:host => uri.host, :port => uri.port || '1234', :password => uri.password)
 end
 
 $words = ["iphone", "Panic", "love", "quote", "guilt", "pleasure",
       "angry", "happy", "sad",  "bored", "hate", "insult", "sex", "valentine", "kim", "justin", "beiber","
       having","then","now","what","nowplaying","coffee","love","hello","world"]
 
-$top10 = ["ubvcddo", "jdjsnme", "ynigkce","tqnamvn","agnljqw"]
+$top10 = []
 
 def cleanTweet(tweet)
   #remove hashtags,RT,@username, and urls
   tweet = tweet.gsub("RT ","").gsub(": ","").gsub("?","").gsub("\n","").gsub('"',"").gsub("'","").strip.chomp
   tweet = auto_link(tweet).gsub(/.*<a.*<\/a>/,"").strip.chomp.gsub("#","")
   special = [">","<","!","@","{","}","<",">","-","_",":",";","/","\\"]
-  clean = true;
+  clean = true
   special.each { |i| clean = false if tweet.include? i}
-  if( tweet.length >80 or tweet.length < 40 or clean == false)
+  if(tweet.length < 40 or clean == false)
     nil
   else
     tweet
@@ -54,9 +50,10 @@ end
 
 def findTweet(word)
   begin
-    $client.search(word, {:lang => 'en', :rpp => 100}).collect  
+    # $client.search(word, {:lang => 'en', :rpp => 100}).collect  
+    $client.search(word, {:lang => 'en'}).take(100).collect
   rescue Exception => e
-    puts e;
+    puts e
     []
   end
 end
@@ -67,7 +64,6 @@ def poemize(word1,word2)
 
   @first_pair = []
   findTweet(word1).each do |tweet|
-    # puts tweet.text
     first = cleanTweet(tweet.text)
     if first and !first.start_with? word1 and !first.end_with? word1
       puts "FIRST1 " + first
@@ -136,6 +132,8 @@ get '/create' do
   if(word1 == nil and word2 == nil)
     @poems = ""
   else
+    puts word1
+    puts word2
     @poems = poemize(word1, word2)
     key = (0...7).map{ ('a'..'z').to_a[rand(26)] }.join
     if(@poems)
@@ -230,3 +228,8 @@ end
 not_found do 
   erb :notfound
 end
+
+# topics = ["coffee", "tea"]
+# client.filter(:track => topics.join(",")) do |tweet|
+#   puts tweet.text
+# end
